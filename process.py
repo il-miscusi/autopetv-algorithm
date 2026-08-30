@@ -17,7 +17,11 @@ import json
 import os
 import shutil
 import subprocess
+import time
 import traceback
+
+T_START = time.time()
+NN_RERUN_DEADLINE_S = 480.0  # skip model re-runs past this; conformance is seconds
 
 import numpy as np
 import SimpleITK
@@ -186,7 +190,7 @@ class AutopetInteractive:
             fg_all, bg_all = split_clicks(clicks)
             fg_prev, _ = split_clicks(cached_clicks or {})
             new_fg = fg_all[len(fg_prev):] if fg_all[:len(fg_prev)] == fg_prev else fg_all
-            if new_fg:
+            if new_fg and (time.time() - T_START) < NN_RERUN_DEADLINE_S:
                 try:
                     nn_pred = self.run_nnunet(ct_path, pet_path, clicks)
                     near = self._near_mask(pet.shape, new_fg, spacing, radius_mm=60.0)
