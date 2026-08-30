@@ -30,12 +30,9 @@ def main():
     upload_url = field(user_upload, "api_url")
     print("uploaded:", upload_url)
 
-    image = client.algorithm_images.create(
-        algorithm=alg_url, user_upload=upload_url)
-    try:
-        print("algorithm image created:", field(image, "api_url"))
-    except Exception:
-        print("algorithm image created:", image)
+    image = client(method="POST", path="algorithms/images/",
+                   json={"algorithm": alg_url, "user_upload": upload_url})
+    print("algorithm image created:", image)
 
 
 if __name__ == "__main__":
