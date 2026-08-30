@@ -1,0 +1,5 @@
+nnUNet_results/
+weights.zip
+*.tar.gz
+*.tar.gz.part-*
+__pycache__/
