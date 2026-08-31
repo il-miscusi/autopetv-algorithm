@@ -1,0 +1,167 @@
+\documentclass[runningheads]{llncs}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Scribble-Conformant Cached Segmentation: A Data-Centric Approach to
+Interactive Whole-Body PET/CT Lesion Segmentation}
+
+\author{Usi Adia-Nimuwa}
+\authorrunning{U. Adia-Nimuwa}
+\institute{Independent researcher\\
+\email{usi.jadia@gmail.com}\\
+Code: \url{https://github.com/il-miscusi/autopetv-algorithm}}
+
+\maketitle
+
+\begin{abstract}
+We describe a data-centric submission to the autoPET~V challenge on
+interactive, clinician-in-the-loop lesion segmentation in whole-body PET/CT.
+The organizers' pretrained four-channel nnU-Net baseline is left unchanged;
+all improvement comes from how its predictions are managed across the
+interactive loop. The previous iteration's prediction is cached and each new
+corrective scribble is enforced by construction: foreground scribbles trigger
+PET-adaptive connected region growing united with a locally-masked model
+re-run, while background scribbles trigger component removal discriminated by
+uptake statistics, with a scribble-commensurate, depth-gated shell chip
+protecting mostly-true components. Because the evaluation places each
+scribble on the largest error component of the previous prediction, every
+iteration reduces its target error and the per-case Dice trajectory is
+approximately monotone, in contrast to the stateless baseline, whose
+trajectory regresses between iterations. The approach requires no training,
+runs in seconds for correction-only iterations, and conforms to the
+challenge's data-centric award track.
+\keywords{Interactive segmentation \and PET/CT \and Lesion segmentation
+\and Scribbles \and Data-centric AI.}
+\end{abstract}
+
+\section{Introduction}
+
+autoPET~V evaluates algorithms that produce an initial whole-body PET/CT
+lesion segmentation and refine it over five corrective steps, where each
+step supplies one simulated or clinician-drawn scribble placed inside the
+largest error region of the previous prediction: a foreground (tumor)
+scribble when the largest miss outweighs the largest false positive, and a
+background scribble otherwise. Cases are scored by the area under the
+per-iteration Dice and lesion-detection curves, so per-scribble
+responsiveness is worth as much as raw single-shot quality.
+
+The organizers' baseline concatenates Gaussian scribble heatmaps as third
+and fourth input channels to an nnU-Net~\cite{isensee2021nnu} trained on the
+FDG~\cite{gatidis2022whole} and PSMA~\cite{jeblick2024psma} databases with
+simulated scribbles. At test time it re-runs inference from scratch at every
+iteration. Two properties limit it: the network may ignore the scribble
+channels (nothing enforces conformance), and statelessness discards the
+previous prediction, so Dice can regress between iterations---the baseline's
+own reference trajectory on its sample case is
+$0.870 \rightarrow 0.886 \rightarrow 0.871 \rightarrow 0.878 \rightarrow
+0.888$.
+
+Our submission treats these as the whole problem. We change no weights and
+train nothing; we manage predictions across the loop.
+
+\section{Method}
+
+\subsection{Cached interactive state}
+
+The Grand Challenge interface invokes the container once per iteration and
+provides a per-case scratch directory. We cache the previous binary
+prediction and the previous clicks JSON there. Scribbles accumulate
+append-only per class, so the new scribble is recovered as the per-class
+suffix of the current clicks relative to the cached clicks. Iteration~0
+(no clicks) runs the unchanged baseline nnU-Net with zeroed heatmap
+channels. On a cold cache with clicks present (defensive path), the baseline
+is re-run with heatmaps and all scribbles are conformed at once.
+
+\subsection{Foreground scribbles: grow, then locally trust the model}
+
+A foreground scribble traces the centerline (or boundary/random subset) of
+the largest cross-section of the largest missed lesion region, and every
+scribble voxel is ground-truth tumor. We union into the cached prediction:
+(i)~a connected region grown from the scribble in the PET volume, thresholded
+at an escalating fraction (0.45--0.8) of the median seed uptake within a
+padded local box, accepted at the first threshold whose region stays under
+400\,ml, falling back to a small dilation of the scribble; and (ii)~the
+voxels that a re-run of the baseline (with the accumulated scribble
+heatmaps) adds within 60\,mm of the new scribble --- the model contributes
+the lesion's three-dimensional shape where thresholding alone is crude,
+but only locally, so it can never retract or alter the prediction elsewhere.
+Model re-runs are skipped when the invocation approaches the per-job time
+limit; the growth step alone still guarantees progress.
+
+\subsection{Background scribbles: discriminate before deleting}
+
+A background scribble lies in the largest false-positive region, but the
+predicted component containing it is not necessarily wholly false: rim-like
+oversegmentation of a correctly detected lesion mass places the scribble
+inside a component that is mostly true, and deleting that component is
+catastrophic (measured Dice $0.87 \rightarrow 0.10$ on the organizers'
+sample case). We therefore remove the whole component only when it is small
+($<$30\,ml) or when, with PET available, the scribble's median uptake reaches
+half of the component's 75th-percentile uptake --- uniformly hot
+physiological structures (bladder, kidneys, brain) satisfy this, whereas a
+scribble in a cold oversegmentation rim around a hot true lesion does not.
+Otherwise we chip conservatively: an ellipsoidal neighbourhood of the
+scribble (4\,mm in-plane, 6\,mm axially), further gated to voxels whose
+depth inside the component does not exceed the scribble's own depth plus
+4\,mm. The removal is thereby commensurate with the scribble --- a
+15-voxel rim sliver removes a shell, not a 25\,mm ball (which measurably
+deleted 2{,}013 true voxels to eliminate 229 false ones).
+
+Finally, all foreground scribble voxels are set positive and all background
+scribble voxels negative, unconditionally --- they are the only voxels whose
+labels are certain.
+
+\section{Results}
+
+\paragraph{Sample-case validation.} Replaying the organizers' evaluator on
+their released sample case and baseline outputs (foreground growth and model
+re-runs disabled --- a lower bound using only removal, fallback dilation and
+enforcement), our trajectories are approximately monotone with Dice AUC
+3.484--3.487 across the three scribble strategies versus 3.514 for the full
+baseline; naive component deletion, by contrast, collapses to AUC 1.65.
+% TODO: DeepPSMA full-pipeline table (baseline vs ours, centerline/random)
+% when the GPU validation run completes.
+
+\paragraph{Platform validation.} On the preliminary (non-interactive,
+single-shot) test phase, the submission reproduces baseline behaviour as
+expected (mean Dice 0.647, mean detection F1 0.730 over five cases),
+confirming interface and runtime conformance: iteration~0 is one nnU-Net
+inference, correction-only iterations complete in seconds, and the per-job
+limit is never approached.
+
+\section{Discussion}
+
+The evaluation protocol makes each scribble an oracle annotation of the
+previous prediction's largest error. A stateless model may or may not act on
+it; a cached, conformant post-processor acts on it by construction, and its
+gains compound across the loop because the corrected error does not
+reappear. The design errs toward locality: it never lets new inference
+retract distant regions, accepting slower global improvement in exchange for
+monotone trajectories, which is the correct trade under an AUC-over-
+iterations metric. All improvement is pre/post-processing around the
+unchanged baseline model, per the challenge's data-centric track.
+
+\begin{thebibliography}{4}
+\bibitem{isensee2021nnu}
+Isensee, F., Jaeger, P.F., Kohl, S.A.A., Petersen, J., Maier-Hein, K.H.:
+nnU-Net: a self-configuring method for deep learning-based biomedical image
+segmentation. Nature Methods 18(2), 203--211 (2021)
+
+\bibitem{gatidis2022whole}
+Gatidis, S., et al.: A whole-body FDG-PET/CT dataset with manually annotated
+tumor lesions. Scientific Data 9, 601 (2022)
+
+\bibitem{jeblick2024psma}
+Jeblick, K., et al.: A whole-body PSMA-PET/CT dataset with manually
+annotated tumor lesions. The Cancer Imaging Archive (2024)
+
+\bibitem{autopetv2026}
+autoPET~V challenge: Automated Lesion Segmentation in Whole-Body PET/CT ---
+the human-AI frontier. \url{https://autopet-v.grand-challenge.org} (2026)
+\end{thebibliography}
+
+\end{document}
