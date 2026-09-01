@@ -96,9 +96,17 @@ The preliminary test-set leaderboard evaluates a single non-interactive
 iteration. At the time of writing our initialization reproduces the
 expected champion-ensemble operating point on that leaderboard, which
 public entries place at approximately 0.85 Dice; the interactive editing
-path is exercised only in the organizers' offline six-step evaluation, and
-we replayed it locally with the organizers' published simulation harness
-on held-out cases. We make no monotonicity claim: the transaction gate
+path is exercised only in the organizers' offline six-step evaluation. We
+replayed that protocol with the organizers' published simulation harness
+(six steps, all three scribble strategies) on four held-out labeled
+whole-body PET/CT cases (two FDG, two PSMA) on a T4 GPU. Across all
+twelve case--strategy pairs, Dice improved from iteration~0 to
+iteration~5 in every pair and the lesion-level $f_1$ never decreased
+(worst case flat); mean trapezoid AUC-Dice was 0.734 against 0.705 for a
+no-edit control that holds the initial mask fixed, and mean AUC-$f_1$ was
+0.628 against 0.559. Per-iteration edit cost was 1--4\,s with a peak of
+12.4\,GB GPU memory, within the platform's T4 and 15-minute-per-case
+limits. We make no monotonicity claim: the transaction gate
 bounds the damage a single edit can do to the detection metric, but does
 not guarantee per-step improvement, and clinician scribbles --- collected
 in advance against baseline predictions and replayed unchanged --- need
