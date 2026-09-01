@@ -81,12 +81,14 @@ inside a Gaussian support around the scribble (add: $\sigma=12$\,mm with a
 3\,mm plateau; remove: $\sigma=8$\,mm), so edits are probability-aware and
 spatially bounded rather than fixed-radius morphology. The resulting
 proposal is applied to the previous mask as a single transaction under
-three checks: (i) removals may not split a previously connected component
-(the offending removal is rolled back); (ii) additions may not merge two
-previously distinct components; (iii) if the accepted candidate would
-create a new enclosed hole, the transaction falls back to the previous
-mask. Scribble voxels themselves are always enforced (tumor $=1$,
-background $=0$).
+four checks: (i) when a background-scribble proposal removes a strict
+majority of its prompted component, the remainder is removed as well to
+resolve the detection-level false positive; (ii) other removals may not
+split a previously connected component (the offending removal is rolled
+back); (iii) additions may not merge two previously distinct components;
+(iv) if the accepted candidate would create a new enclosed hole, the
+transaction falls back to the previous mask. Scribble voxels themselves
+are always enforced (tumor $=1$, background $=0$).
 
 \section{Validation}
 
