@@ -68,10 +68,9 @@ checkpoint, in an isolated subprocess. A fixed majority vote of three
 classical classifiers (histogram gradient boosting, linear SVM, random
 forest) over 99 whole-body intensity-distribution features routes the case
 to a tracer-specific component policy: FDG keeps 18-connected components of
-at least 25 voxels; PSMA keeps components of at least 5 voxels and applies
-a frozen three-feature logistic gate that recovers selected 1--4 voxel
-components. Both the router and the gate are taken unchanged from public
-Apache-2.0 work~\cite{autopetvrepo}.
+at least 25 voxels; PSMA keeps components of at least 5 voxels. The router and
+these component floors are adapted from public Apache-2.0
+work~\cite{autopetvrepo}.
 
 \subsection{Transactional scribble editing}
 The previous accepted mask is reloaded from the platform-persisted output

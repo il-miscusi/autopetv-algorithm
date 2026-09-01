@@ -18,17 +18,27 @@ import numpy as np
 import SimpleITK
 
 from tracer_router import predict_tracer
-from psma_shape_component_gate import apply_psma_shape_gate, load_gate
-
-
 # ── 路径常量 (GC 接口 + bake 进镜像的权重目录) ──────────────────────────────
 INPUT_PATH = "/input"
 OUTPUT_PATH = "/output/images/tumor-lesion-segmentation"
 CLICK_JSON = "/input/lesion-clicks.json"
-PSMA_SHAPE_GATE_PATH = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    "psma_shape_component_gate_final.json",
-)
+
+
+def postprocess_champion_mask(raw_base, tracer):
+    """Apply the tracer-specific iteration-0 component floor."""
+    base = np.asarray(raw_base, dtype=np.uint8)
+    before = int(base.sum())
+    if tracer == "fdg":
+        threshold = 25
+    elif tracer == "psma":
+        threshold = 5
+    else:
+        raise RuntimeError(f"unsupported tracer route {tracer!r}")
+    if before:
+        base = (
+            cc3d.dust(base, threshold=threshold, connectivity=18) > 0
+        ).astype(np.uint8)
+    return base, f"connectivity18_{tracer}{threshold}"
 
 
 def _load_gc_clicks_lightweight(json_path):
@@ -155,28 +165,10 @@ class AutopetInteractive:
                 del probabilities, probability_argmax
 
         before = int(raw_base.sum())
-        if tracer == "fdg":
-            base = raw_base
-            if before:
-                base = (
-                    cc3d.dust(base, threshold=25, connectivity=18) > 0
-                ).astype(np.uint8)
-            postprocess = "connectivity18_fdg25"
-            gate_telemetry = None
-        elif tracer == "psma":
-            gate = load_gate(PSMA_SHAPE_GATE_PATH)
-            base, gate_telemetry = apply_psma_shape_gate(
-                raw_base,
-                tuple(float(value) for value in prediction_image.GetSpacing()),
-                gate,
-            )
-            postprocess = gate["candidate_semantics"]
-        else:
-            raise RuntimeError(f"unsupported tracer route {tracer!r}")
+        base, postprocess = postprocess_champion_mask(raw_base, tracer)
         print(
             f"champion tracer={tracer} postprocess={postprocess} "
             f"foreground={before}->{int(base.sum())} "
-            f"shape_gate={gate_telemetry}"
         )
         return base, lesion_probability
 
