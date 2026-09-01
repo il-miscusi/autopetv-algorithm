@@ -19,9 +19,11 @@ jobs:
           import os, gcapi
           c = gcapi.Client(token=os.environ["GC_TOKEN"])
           alg = c.algorithms.detail(slug="scribble-conformant-cached-nnu-net")
-          print("alg details:", {k: alg.get(k) for k in ("pk", "slug", "title", "api_url", "url", "description") if k in alg})
-          url = alg["api_url"] if isinstance(alg, dict) else alg.api_url
-          pk = url.rstrip("/").split("/")[-1]
+          print("alg:", alg)
+          if hasattr(alg, "__dict__"):
+              print("alg dict:", alg.__dict__)
+          url = getattr(alg, "api_url", None) or (alg.get("api_url") if isinstance(alg, dict) else str(alg))
+          pk = str(url).rstrip("/").split("/")[-1]
           images = c(method="GET", path=f"algorithms/images/?algorithm_image={pk}")
           for im in images.get("results", images if isinstance(images, list) else []):
               print("image:", {k: im.get(k) for k in ("pk", "created", "import_status", "is_desired_version", "comment", "api_url")})
