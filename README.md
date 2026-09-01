@@ -14,11 +14,13 @@ scribble-guided whole-body PET/CT lesion segmentation (FDG + PSMA).
   accepted mask (persisted through `/output`, the platform's transaction
   carrier; geometry-checked, failing closed to M0) via TACE — click-local
   Gaussian threshold modulation of the frozen champion probability map —
-  adjudicated by a transaction gate: REMOVE proposals that split a previous
+  adjudicated by a transaction gate: a background-scribble proposal that
+  removes a strict majority of its prompted component removes the remainder
+  to resolve the detection error; other REMOVE proposals that split a previous
   component are rolled back, ADD proposals that merge distinct lesions are
-  rejected, and HoleGuard falls back to the previous mask if a proposal
-  creates a new enclosed hole. These guards exist because the final ranking
-  weights AUC-DMM (lesion-level detection) equally with AUC-Dice.
+  rejected, and HoleGuard falls back to the previous mask if a proposal creates
+  a new enclosed hole. These guards exist because the final ranking weights
+  AUC-DMM (lesion-level detection) equally with AUC-Dice.
 
 ## Provenance
 
