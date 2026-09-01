@@ -1,0 +1,30 @@
+# Read-only: reports the Grand Challenge algorithm's container images and
+# their build/import status, so build progress is observable from CI without
+# a local GC token.
+name: gc-status
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query algorithm images
+        env:
+          GC_TOKEN: ${{ secrets.GC_TOKEN }}
+        run: |
+          pip install -q gcapi
+          python - <<'EOF'
+          import os, gcapi
+          c = gcapi.Client(token=os.environ["GC_TOKEN"])
+          alg = c.algorithms.detail(slug="scribble-conformant-cached-nnu-net")
+          url = alg["api_url"] if isinstance(alg, dict) else alg.api_url
+          pk = url.rstrip("/").split("/")[-1]
+          images = c(method="GET", path=f"algorithms/images/?algorithm_image={pk}")
+          for im in images.get("results", images if isinstance(images, list) else []):
+              print({k: im.get(k) for k in ("pk", "created", "import_status", "is_desired_version", "comment")})
+          jobs = c(method="GET", path=f"algorithms/jobs/?algorithm_image__algorithm={pk}&limit=5")
+          for j in jobs.get("results", []):
+              print("job:", {k: j.get(k) for k in ("pk", "created", "status")})
+          EOF
