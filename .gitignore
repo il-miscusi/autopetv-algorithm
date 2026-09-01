@@ -1,5 +1,17 @@
-nnUNet_results/
-weights.zip
+# 权重绝不进 git（走 GitHub Release）
+model/
 *.tar.gz
-*.tar.gz.part-*
+*.bin
+nnUNet_results/
+# 大样本/数据/二进制
+*.zip
+*.gif
+*.tiff
+*.nii.gz
+*.mha
+test/output/
+# python
 __pycache__/
+*.pyc
+**/__pycache__/
+.ipynb_checkpoints/

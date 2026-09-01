@@ -1,0 +1,36 @@
+{
+  "status": "frozen_psma_shape_component_gate",
+  "candidate_semantics": "connectivity18_psma5_plus_shape_gate_1to4",
+  "features": [
+    "size_voxels",
+    "volume_mm3",
+    "bbox_fill_fraction"
+  ],
+  "estimator": "StandardScaler+LogisticRegression",
+  "C": 1.0,
+  "class_weight": null,
+  "decision_threshold": 0.5,
+  "training_scope": "all released PSMA 1--4 voxel components after strict held-out-fold nomination",
+  "components": 2845,
+  "matched_components": 1002,
+  "scaler_mean": [
+    2.4319859402460455,
+    132.18212978754403,
+    0.9025825034173003
+  ],
+  "scaler_scale": [
+    1.119579584576073,
+    94.39031713603205,
+    0.16099159540467517
+  ],
+  "coefficient": [
+    0.13794007374269981,
+    0.8344680175097902,
+    0.05834380133579118
+  ],
+  "intercept": -0.6806327208736607,
+  "development_fit_auc_not_generalization_evidence": 0.7369912914269129,
+  "component_evidence_sha256": "dcf237e1c860297c5bfbb8863d3423017f88f2deef7b75951780902f2b6d0c57",
+  "oof_gate_result_sha256": "94c7a9ff08d311f3271f6b7b6ffe19d0155fac46d58a516e020c5b8492982572",
+  "portable_score_max_abs_error": 5.551115123125783e-17
+}

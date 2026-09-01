@@ -1,0 +1,560 @@
+{
+  "release": "weights-v0.3.0",
+  "policy": "localedit_tace_holeguard_fusion_v5_inference_only",
+  "checkpoint_name": "checkpoint_final.pth",
+  "archives": {
+    "champion": {
+      "name": "autoPET-3-LesionTracer.zip",
+      "source": "https://zenodo.org/records/14007247",
+      "bytes": 3808128600,
+      "md5": "566016409b0bd14770c0b57c1f2873f1"
+    },
+    "fdg": {
+      "name": "localedit_tace_holeguard_v5_fdg.tgz",
+      "bytes": 1903849892,
+      "sha256": "08b18f819b8fecc7f19f48bc84f5d09610b9762128169a83d9802e68fe865f62",
+      "multipart_join_order": [
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-aa",
+          "bytes": 41943040,
+          "sha256": "7760d9ff25101cd1d4da6abfef1e9619e0f9aa7fc988c1e3b27e4f613318158a"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-ab",
+          "bytes": 41943040,
+          "sha256": "15c1a2ae88a38fb81c4de78a0364d8874626e33832c95bc21539f2800cd06f6f"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-ac",
+          "bytes": 41943040,
+          "sha256": "b1f1be042a2aa8360c5e9dbcc487e914519536c748fb4d59635fa921e739ca0a"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-ad",
+          "bytes": 41943040,
+          "sha256": "642eec9fdb6ba89bc292c0b8090104b69f69edb6e9849cbb24eb60dd6f4186d5"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-ae",
+          "bytes": 41943040,
+          "sha256": "4fa99c19f67c23fb293dfeb04c91fe720d03928c7d5ba44e065c65db9b9bccfc"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-af",
+          "bytes": 41943040,
+          "sha256": "46f48b2adeae4634ead0ba446e7a9cf908a24b8c1b24bd416cec7e7206c988bb"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-ag",
+          "bytes": 41943040,
+          "sha256": "cc924cbed03f86161b88a53a504ac7c5335d2591a733d9ba5e457f5d159bea79"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-ah",
+          "bytes": 41943040,
+          "sha256": "6451ba502039129a69d21187373a84303a45d7eee5f8d3d6f131b97d89cdac19"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-ai",
+          "bytes": 41943040,
+          "sha256": "4cc01fbee19298b5e294bc03812c1ef115c59ba3a4ee8ac8ccb023576ec89daa"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-aj",
+          "bytes": 41943040,
+          "sha256": "f3c45363414908e69821da9340b94a1729ea6d2813d998aeab0f3d9de33870a0"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-ak",
+          "bytes": 41943040,
+          "sha256": "a5cbf17b483164be1591dd58becc37d72c984bdd53f327e18a0e48b678b18e0c"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-al",
+          "bytes": 41943040,
+          "sha256": "7b9de942dcec7e42ece8d03c28d26021dfa7b33cb205ae8017a2669470e66629"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-am",
+          "bytes": 41943040,
+          "sha256": "edccdc27599084fc2fe61acf82451300cc5be4d789e29f10c4e0e90ccf2c1fba"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-an",
+          "bytes": 41943040,
+          "sha256": "c97a7c8da32ade350f3008fd96129c27f90555ecae41e1e93b0d555eab2ec975"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-ao",
+          "bytes": 41943040,
+          "sha256": "63260d1a0530bfb35c51596157748074804a0aa94f3a330ea01df7cb382dbd97"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-ap",
+          "bytes": 41943040,
+          "sha256": "3d994e3dbfaede85cd92db5a16ea2cb36580bbadb0a7b39a33e8800b239963b1"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-aq",
+          "bytes": 41943040,
+          "sha256": "29b6bc3d8f2a43c31887b376c71d71f6a4d0186e85a4e8188501139ac1ec236d"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-ar",
+          "bytes": 41943040,
+          "sha256": "8ffbd6285833ed2ec7af9e1e52465878fd70afc24b45cceaca1c2314e4e4b5d9"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-as",
+          "bytes": 41943040,
+          "sha256": "60e772beb330634fcb0d02312205bfd138722f3f7a8324a50c33a281d463a923"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-at",
+          "bytes": 41943040,
+          "sha256": "9215aa09b9abc399c95dd6daf61a47d93306ed64b04daccb45afbe92f2354c3b"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-au",
+          "bytes": 41943040,
+          "sha256": "5efd1fc609e3b87e93cd02ca14138d0b09459abb09599c185bb6ad6652fc0eb9"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-av",
+          "bytes": 41943040,
+          "sha256": "9ea044aa4f445215f8e440c22ec024e9c39fd1c956a0d3d7cdfa6cd00ee47989"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-aw",
+          "bytes": 41943040,
+          "sha256": "067277c964b461adcc2c46917a9f8ba9bfd7965d8e6fce2e22494ef3cff516f0"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-ax",
+          "bytes": 41943040,
+          "sha256": "18111afa8851f732cd03f19a761de5933a4fd4d2d189cbb6f0382336efdd104c"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-ay",
+          "bytes": 41943040,
+          "sha256": "1dad9e217ed970f66ab199d54d0751d7a7173a2ab5670770458276d7eb706819"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-az",
+          "bytes": 41943040,
+          "sha256": "7e4130a8374d4895bb1a9b90c0dc61e9c84f91dbd7d666965547781c44cadedc"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-ba",
+          "bytes": 41943040,
+          "sha256": "3f146b2a25bdc38fdda43951ce3847671afe89e4bf60aaedbfde1ec25f77de9f"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bb",
+          "bytes": 41943040,
+          "sha256": "232f590d4a9e315dcfa43e6eff0392f122091350ae221af60797e2deb433efe3"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bc",
+          "bytes": 41943040,
+          "sha256": "6eefc2307c7e91bf52485fc327a2d6416a1bf30c009708e5402c1fc93183e6ae"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bd",
+          "bytes": 41943040,
+          "sha256": "1fd7e110435a8018343964cc975a27381b0bff12c7e1d687f50eaff6ba136a97"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-be",
+          "bytes": 41943040,
+          "sha256": "fba12517d958a5da9ab3144cf2a421b0562e09e4a75275ad953320d4b7b6e546"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bf",
+          "bytes": 41943040,
+          "sha256": "71d20afef1823404a1e882248a715c90b7e50dcce87c34675c91f9644410eceb"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bg",
+          "bytes": 41943040,
+          "sha256": "877afc9fdb08d4a687ad413e5c484fc0191a2f4916c58ec97c74ccf5aefdcf4c"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bh",
+          "bytes": 41943040,
+          "sha256": "2f0283f5c7d45bdcf4dfb65bbfd00b3c61faca6266018378ed5ad29cab505a4e"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bi",
+          "bytes": 41943040,
+          "sha256": "c954196a16a687603bbc01566a7639525abc27289eb23b266a454df8515971a7"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bj",
+          "bytes": 41943040,
+          "sha256": "f583fc3cd365bc6956185911c548d5ea2db552e3bfa9ff6f6813f9ef54c5da98"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bk",
+          "bytes": 41943040,
+          "sha256": "ad846d862708b4b6ad6e71164d8ab2e8e89fea5de3e12b89260bff854d493a27"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bl",
+          "bytes": 41943040,
+          "sha256": "139cf60c9b7c9ff06e9ae0334097abec81e212dba1b351650db9a839ed551034"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bm",
+          "bytes": 41943040,
+          "sha256": "84d49a16aa07a0f2c370e5ce89f3675fa3fcb3fcca1f28adfe068be4cd8abd90"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bn",
+          "bytes": 41943040,
+          "sha256": "5b3d1317e1dde2b492742bf620fe9a1714fadeaf0fa1f3b74b66dc2b73537663"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bo",
+          "bytes": 41943040,
+          "sha256": "50a3f2f491b703bcbcf581f637f88e303050c4bb88e0194c0eb7adebe239320c"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bp",
+          "bytes": 41943040,
+          "sha256": "a455b989e13798efb1e737d8acb27ee231ec53701ef81ffc9c355be67ae742ca"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bq",
+          "bytes": 41943040,
+          "sha256": "82f9a1c11fd3535c8a8674f3576e9e5ffcc7ac23bc80b247a513202c8a209c8f"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-br",
+          "bytes": 41943040,
+          "sha256": "4d990feab8a90581458559c1e6e237dcf0a80216638653e95eefcac024d1a3b7"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bs",
+          "bytes": 41943040,
+          "sha256": "228a16a06a211dcae63598c6e29fefaac2e270fd1421fc236abb23e26e0ed1dd"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_fdg.tgz.chunk-bt",
+          "bytes": 16413092,
+          "sha256": "a46882e500c305c955d9c9fd7e2447d464120e2fc931a73c3a52904b05e96fe5"
+        }
+      ]
+    },
+    "psma": {
+      "name": "localedit_tace_holeguard_v5_psma.tgz",
+      "bytes": 1903860818,
+      "sha256": "b4c435063dfff7469cfce76d98fd7971307542453f1c8caadb108f0b5d632f5d",
+      "multipart_join_order": [
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-aa",
+          "bytes": 41943040,
+          "sha256": "11fd6e20f51303a759e9ad099a7f84f3b5d5f5d89d06783d4bedda5ab7c8da60"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-ab",
+          "bytes": 41943040,
+          "sha256": "3b43f01cdf6bc40cf12d01d8b02b93871ea4a868b720bfb52ed8a041bf099eea"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-ac",
+          "bytes": 41943040,
+          "sha256": "2b4e9f3a36296cec2dbe3fcb584b9d5474027d0bc4525216d588e7450c6c6888"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-ad",
+          "bytes": 41943040,
+          "sha256": "8b19836021de2138801053266a2e7389eafd737461bc226eb7f5c9a6faf28141"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-ae",
+          "bytes": 41943040,
+          "sha256": "3692b5e835d1be2b0917aa319ea834088f9e77907a44ec545044233c957e3f0c"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-af",
+          "bytes": 41943040,
+          "sha256": "3ee4ee2c71f0a26218b965b116f73c612ea0435fcbdaaaa87dc1a61b40c74bab"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-ag",
+          "bytes": 41943040,
+          "sha256": "93db0fed8a610f913d3fee5ca6df920f33801d0d91647e18c21d9c1444f29ac4"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-ah",
+          "bytes": 41943040,
+          "sha256": "3795226cfa062cffae98be02269735a6fec19afa799aa3cfca0e2c01da775cc5"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-ai",
+          "bytes": 41943040,
+          "sha256": "02baec63a849a52ce8fe7fb10eb0d758df0d547e5405f43bab19a5dc9772a660"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-aj",
+          "bytes": 41943040,
+          "sha256": "009c210fedb02681863b93367c27eff8ce60a671664baab829030a66648cafc5"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-ak",
+          "bytes": 41943040,
+          "sha256": "8d297f7572320796c530505de6baa46a3be62ef3e4f45e90573f46f53217c360"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-al",
+          "bytes": 41943040,
+          "sha256": "e29e8e11280f1c0df5b7a4ca24896daa4e16d7ed240bf08e760530f7943aff4c"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-am",
+          "bytes": 41943040,
+          "sha256": "2dd6b8604867516d287645b820d80369b143da864e170f77b46fd64883c38e58"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-an",
+          "bytes": 41943040,
+          "sha256": "70f156911aea3837b5fe0ffb01954c6579791ddb522a68316b1791aa32d94d1f"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-ao",
+          "bytes": 41943040,
+          "sha256": "f3c0b2a8c68481168e98fdeaaa7b26eb8bfa7009fdd19c7f715cb12b8af5fbd6"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-ap",
+          "bytes": 41943040,
+          "sha256": "0c24111b92c4811973cad42eea6a38d44576cc9e63487e19083048396b249f13"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-aq",
+          "bytes": 41943040,
+          "sha256": "c0e83c5585b925fa20fe05630842fd6234ce722ee5ab938f33307f8b492977d6"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-ar",
+          "bytes": 41943040,
+          "sha256": "05b13a4bf5b5876ccbb4c40c1dc5fcbe36b10f6d3749443b7171e2496d1926c1"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-as",
+          "bytes": 41943040,
+          "sha256": "072dd65b2a7facc16792fadbfac13c04d6e35801f464e7d58dfab392982a40dc"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-at",
+          "bytes": 41943040,
+          "sha256": "ff706ea7fda8ea6f747c6c4159c8100564886b4da8b8e3f7a3e4f9ecee0a8dda"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-au",
+          "bytes": 41943040,
+          "sha256": "e90162997bcb6c3bc9bb8b78b9add4f3473921b61a92dbbc4cbec819c14b8e31"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-av",
+          "bytes": 41943040,
+          "sha256": "790aa7f7147184afb8a32d00729357e08e16433621cfb36e33bf34ae15f36639"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-aw",
+          "bytes": 41943040,
+          "sha256": "5fcd4b8e117949de7714e64988afb42e783925ca987b974ef5c78d155853b585"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-ax",
+          "bytes": 41943040,
+          "sha256": "86f47e44dec7ecda2f7b5532a47b35ab50913c8aa31b745c861e355a6c2ad2a8"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-ay",
+          "bytes": 41943040,
+          "sha256": "128657008f12010dbbca56f393cca27a28c314c76f43770b75c285f78c09c441"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-az",
+          "bytes": 41943040,
+          "sha256": "ceac3281722f28bb91bfedc7cd035c9b517ee64163ee195ecd4beda4fdebc408"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-ba",
+          "bytes": 41943040,
+          "sha256": "3b1f5864ad448e5977e729e53e9779fde6e106ecfbd2f885e64fbce491d6fcd9"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bb",
+          "bytes": 41943040,
+          "sha256": "8f363649acf83e61a2c8c50df0b67b1fef36a75e46f88bfc519fd9559c21f203"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bc",
+          "bytes": 41943040,
+          "sha256": "8fa7d84f076d3f29dd4ee267e0aeea44a920ffabcd9ae655142bacc1b061cf8c"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bd",
+          "bytes": 41943040,
+          "sha256": "f97adee62e56aeeb893dbfacad742beca00bdb6e684db6f7a44d002ea042d942"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-be",
+          "bytes": 41943040,
+          "sha256": "7bc72413c07ebdbc5dd27737a4d1c300827746dd2c628004e776ee80bd4f63c7"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bf",
+          "bytes": 41943040,
+          "sha256": "bfc7c3f8e348852a5eb4f0214b3af4dd48d32f6b1942a284113fe9c61d56f354"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bg",
+          "bytes": 41943040,
+          "sha256": "018808054f468007ce1767b4896cbdcf564eb5ee72e0dfa9db3b8846033490ea"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bh",
+          "bytes": 41943040,
+          "sha256": "2569d25f17ed7cc284be12b789a505c8d516091daa1dc4fbfc9f5948df1e012a"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bi",
+          "bytes": 41943040,
+          "sha256": "5b8c987e7caa2ddb8a630bf6fc74feda3b127d994dad2129de815ae980cbbb8e"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bj",
+          "bytes": 41943040,
+          "sha256": "32ad5988625fd5283062af16dcab26e7745aa1891c278b2a99056d1c3e3b223b"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bk",
+          "bytes": 41943040,
+          "sha256": "d15744bfc2e6583e2b262138c0a0ac0e9fa28f3cc90764f43a4f8ec59021a670"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bl",
+          "bytes": 41943040,
+          "sha256": "fd22cc939e569ad4d9238bdab48340e71c1f8f00df5833f0c99f3f34f88e67b7"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bm",
+          "bytes": 41943040,
+          "sha256": "942148075fdcdcd2ebe603fefd2f8f51d7a86289e223933a159a96d01bed5fba"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bn",
+          "bytes": 41943040,
+          "sha256": "fd9510521297c92eadd76e0568a8275ef6d2ae98e23a706831e4c0d30a59ef6d"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bo",
+          "bytes": 41943040,
+          "sha256": "2e538b55982e18b282a1a0199748d5ca1c2a5b7573a0a1304c2d6f5a575f78c7"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bp",
+          "bytes": 41943040,
+          "sha256": "9d13feca9598c20b67379e5dcb2e580a04849ed1bcd549089be67e14ea395c9d"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bq",
+          "bytes": 41943040,
+          "sha256": "fdaed99c8f508720496f967ea45f0d530f1715cbb79b8ce87a53c176bc111a28"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-br",
+          "bytes": 41943040,
+          "sha256": "dc647399f1523157a08b67cf306c2a8bd293047f2a7bf8bec4b56716501eeee4"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bs",
+          "bytes": 41943040,
+          "sha256": "4305c8da999a84480a5bf99860c12bd550baaec91e0485f9a7e9540e93750688"
+        },
+        {
+          "name": "localedit_tace_holeguard_v5_psma.tgz.chunk-bt",
+          "bytes": 16424018,
+          "sha256": "e20285134500191fbde3853bb65cdb54ef0d47f07713e5e74a37b6aa0f67ed5c"
+        }
+      ]
+    }
+  },
+  "checkpoints": [
+    {
+      "domain": "fdg",
+      "fold": 0,
+      "bytes": 409710996,
+      "sha256": "7cd7a05faf0f7c803b89483291bcc0c5d737e66b15564c2965ebaf3ac2afb703",
+      "network_tensor_sha256": "a501b7b4f3f9bfe7dd2802b510bdc9f91b6324cae5bfe393db0d171e512c9675"
+    },
+    {
+      "domain": "fdg",
+      "fold": 1,
+      "bytes": 409710996,
+      "sha256": "200704635b925cfbb4cb369db9a2ee9380a8ba76cd8c377d5572b7a211fb88e0",
+      "network_tensor_sha256": "2ca11a27373ef142aac56f19a7d73d4a2a5c14be2b8d4f10700bf011f9ec6b2d"
+    },
+    {
+      "domain": "fdg",
+      "fold": 2,
+      "bytes": 409710996,
+      "sha256": "cb272c7b5539c85a51f0feac1d14bc3dd6acddf9ce3aa1e7b52826e07c0df145",
+      "network_tensor_sha256": "6733090dfc383d532922fb0672fbc819cc75d91f62856909ee38492a0324c380"
+    },
+    {
+      "domain": "fdg",
+      "fold": 3,
+      "bytes": 409710996,
+      "sha256": "8b9912de750cb04073d7915886416c48c7ad964c9cd03c62da04321a9e5dd1a5",
+      "network_tensor_sha256": "6c7e4b10ad7519b007d2a0afea7a95ad753eed5fcfa1863ef1ae7a1b4b44f640"
+    },
+    {
+      "domain": "fdg",
+      "fold": 4,
+      "bytes": 409710996,
+      "sha256": "ca36b649d0688aaf2f739ef68e3a4717727c76c444af9022c0a6d8f86be096b1",
+      "network_tensor_sha256": "bb292d56689ed399e71b8ca27534f7caa52258c9cfe788c3bac3d403e31f2626"
+    },
+    {
+      "domain": "psma",
+      "fold": 0,
+      "bytes": 409710996,
+      "sha256": "9fd8a604839801d9e937ba8a919d9da05b96f4c6ae235502f94fea14d67d975c",
+      "network_tensor_sha256": "8b8abc4f7bc685fcfb95b9ad63f1e98d5bc2d2f4b51565f6c3c464a4b858021b"
+    },
+    {
+      "domain": "psma",
+      "fold": 1,
+      "bytes": 409710996,
+      "sha256": "61029c8759a58f31d76581c0b5ce9cb438aa63e07927dbaeb62d62de66051317",
+      "network_tensor_sha256": "ad72bef4f7eed7ee13126d911f85bb6fe68a6eef9c475a208bd0ee89734ec897"
+    },
+    {
+      "domain": "psma",
+      "fold": 2,
+      "bytes": 409710996,
+      "sha256": "9223675895cca7bf5fd7e9fd9c3159b91715725a63e11ece842cea1904541497",
+      "network_tensor_sha256": "b3bd38dfc8a2c6caeac4b52405932759da1cdcd257661660e87098bb9acfae13"
+    },
+    {
+      "domain": "psma",
+      "fold": 3,
+      "bytes": 409710996,
+      "sha256": "0db933d2794bb9c414dcf56189507d1444206362512fac4dad9809cb939046dc",
+      "network_tensor_sha256": "b06d8ddefa264ace8dc4f36fafd9b557a0aa61550183210cd02e816489b8dbfb"
+    },
+    {
+      "domain": "psma",
+      "fold": 4,
+      "bytes": 409710996,
+      "sha256": "6a8f515767c018b27ba9d336d5bde4ce34ecbbfab18882a28b0c87fb6916a83d",
+      "network_tensor_sha256": "66c104de4fb6afc20978612e375d4b730691a3db979c21de212aacaff1932a9d"
+    }
+  ],
+  "all_network_weights_bit_identical_to_training_checkpoints": true
+}

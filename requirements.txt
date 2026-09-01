@@ -1,4 +1,17 @@
-SimpleITK==2.4.1
-scipy==1.15.2
-numpy==1.26.4
-nnunetv2==2.6.0
+# AutoPET V 2026 容器额外/锁版本依赖。
+#
+# ⚠️ 绝大多数依赖 (torch, dynamic-network-architectures, batchgeneratorsv2, edt,
+#    scikit-image, blosc2, nibabel, cc3d 间接等) 由 `pip install -e autoPET-interactive`
+#    自动从其 pyproject.toml 的 dependencies 解析安装 —— 这里不重复列，避免版本打架。
+#
+# ⚠️ 绝不在这里写 `nnunetv2==...`：我们用的是 autoPET-interactive fork 的 editable 安装，
+#    装 PyPI nnunetv2 会覆盖掉 fork、丢失 autopet_predictor / NanFix / EDT 等私有类。
+#
+# 这里只锁 baseline 已验证的关键版本（与官方 baseline 对齐），
+# 以及推理后处理可能用到但 fork pyproject 没硬锁的包。
+SimpleITK==2.5.5
+scipy==1.17.1
+numpy==2.1.2
+
+# scribble 后处理 / 连通域 (process 路径暂未用，但 utils 后续若做 CC 级清理会用到，保留)
+connected-components-3d==4.0.0
