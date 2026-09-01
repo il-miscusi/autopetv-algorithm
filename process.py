@@ -1,4 +1,4 @@
-"""AutoPET V 2026 LocalEdit--TACE HoleGuard Fusion v5 container.
+"""AutoPET V 2026 detection-aware TACE v6 container.
 
 Every invocation obtains the hard M0 and float32 lesion probability from one
 Dataset222 AutoPET-III five-fold forward pass. Iter0 applies a conservative
@@ -294,6 +294,7 @@ class AutopetInteractive:
             "tace_rejected_oversize_components": tace_result.rejected_oversize_components,
             "tace_rejected_add_merge_components": tace_result.rejected_add_merge_components,
             "tace_rejected_remove_split_voxels": tace_result.rejected_remove_split_voxels,
+            "tace_whole_components_removed": tace_result.whole_components_removed,
             "selected_source": fusion.source,
             "selection_reason": fusion.reason,
             "accepted_add_voxels": fusion.accepted_add_voxels,
@@ -303,7 +304,7 @@ class AutopetInteractive:
             "new_hole_voxels_tace": fusion.new_hole_voxels_gaussian,
             "hole_fallback_level": fusion.hole_fallback_level,
         }
-        print(f"LocalEdit--TACE HoleGuard Fusion v5 telemetry: {telemetry}")
+        print(f"Detection-aware TACE v6 telemetry: {telemetry}")
 
         # ── 5. 写出 uuid.mha (几何对齐到原始 PET/CT) ──────────────────────
         self._write_output(seg, None, ct_path, uuid)
