@@ -1,8 +1,8 @@
 """AutoPET V 2026 LocalEdit--TACE HoleGuard Fusion v5 container.
 
 Every invocation obtains the hard M0 and float32 lesion probability from one
-Dataset222 AutoPET-III five-fold forward pass. Iter0 remains bit-identical to
-the deployed champion. Later invocations transact cumulative clicks against
+Dataset222 AutoPET-III five-fold forward pass. Iter0 applies a conservative
+25-voxel component floor. Later invocations transact cumulative clicks against
 the previous accepted mask using frozen tracer-specific TACE and LocalEdit
 proposals. HoleGuard fails closed to TACE, then to the previous mask.
 """
@@ -28,12 +28,9 @@ def postprocess_champion_mask(raw_base, tracer):
     """Apply the tracer-specific iteration-0 component floor."""
     base = np.asarray(raw_base, dtype=np.uint8)
     before = int(base.sum())
-    if tracer == "fdg":
-        threshold = 25
-    elif tracer == "psma":
-        threshold = 5
-    else:
+    if tracer not in {"fdg", "psma"}:
         raise RuntimeError(f"unsupported tracer route {tracer!r}")
+    threshold = 25
     if before:
         base = (
             cc3d.dust(base, threshold=threshold, connectivity=18) > 0

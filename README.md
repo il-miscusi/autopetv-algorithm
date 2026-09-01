@@ -7,8 +7,7 @@ scribble-guided whole-body PET/CT lesion segmentation (FDG + PSMA).
 
 - **Iteration 0 (M0):** five-fold AutoPET-III champion ensemble
   (LesionTracer, nnU-Net ResEncL, Dataset222 multi-tracer) run in an isolated
-  subprocess, followed by a tracer-specific connected-component policy
-  (FDG: 18-connectivity dust ≥ 25 voxels; PSMA: ≥ 5 voxels).
+  subprocess, followed by an 18-connectivity component floor of 25 voxels.
 - **Tracer routing:** FDG/PSMA is decided directly from PET/CT by a fixed
   three-classifier majority vote over 99 whole-body distribution features.
 - **Iterations 1–5:** cumulative scribbles are applied to the previous
