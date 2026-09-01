@@ -1,10 +1,8 @@
-# Builds the autoPET V algorithm container on every v* tag: downloads the
-# organizers' pretrained nnU-Net baseline weights (their own Google Drive
-# fallback — the lab-midas repo's LFS budget is exhausted), bakes them into
-# the image, and attaches the gzipped `docker save` output to a GitHub
-# release split into <2GB parts. Reassemble with:
-#   cat autopetv_algorithm.tar.gz.part-* > autopetv_algorithm.tar.gz
-# then upload as a Container Image on the GC Algorithm page.
+# CI canary: builds the algorithm container on every v* tag so a broken
+# Dockerfile is caught before the Grand Challenge linked-repo build spends
+# its own build. The image is self-contained (weights downloaded and
+# hash-verified inside the docker build). No artifacts are published — the
+# GC linked-repo build is the shipping path.
 name: build-container
 
 on:
@@ -15,8 +13,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -26,32 +22,7 @@ jobs:
                       /usr/share/dotnet /opt/ghc || true
           df -h /
 
-      - name: Download baseline weights
-        run: |
-          pip install --quiet gdown
-          gdown 1G0HGHzQMXzslGDxFSNs5fq3RCeAu7M6l -O weights.zip
-          unzip -q weights.zip
-          test -f nnUNet_results/Dataset998_AutoPETV/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/checkpoint_final.pth
-          rm weights.zip
-          du -sh nnUNet_results
-
       - name: Build image
         run: |
           docker build --platform=linux/amd64 --tag autopetv_algorithm .
-
-      - name: Save and split
-        run: |
-          docker save autopetv_algorithm | gzip -c > autopetv_algorithm.tar.gz
-          ls -lh autopetv_algorithm.tar.gz
-          split -b 1900m autopetv_algorithm.tar.gz autopetv_algorithm.tar.gz.part-
-          rm autopetv_algorithm.tar.gz
-          ls -lh autopetv_algorithm.tar.gz.part-*
-
-      - name: Upload to release
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          TAG="${GITHUB_REF_NAME}"
-          if [ "${GITHUB_REF_TYPE}" != "tag" ]; then TAG="manual-${GITHUB_RUN_ID}"; fi
-          gh release create "$TAG" --notes "container build $TAG" || true
-          gh release upload "$TAG" autopetv_algorithm.tar.gz.part-* --clobber
+          docker image ls autopetv_algorithm

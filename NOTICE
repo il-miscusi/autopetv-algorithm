@@ -1,0 +1,25 @@
+This repository builds an AutoPET V (MICCAI 2026) interactive segmentation
+algorithm container. It incorporates third-party work, all under permissive
+licenses, with gratitude:
+
+1. Champion base model and inference scaffolding
+   - Weights: "autoPET III LesionTracer" (Team LesionTracer / MIC-DKFZ),
+     Zenodo record 14007247, CC-BY-4.0. Winner of the AutoPET-III
+     model-centric category (arXiv:2409.09478).
+   - Vendored inference fork: github.com/MIC-DKFZ/autopet-3-submission
+     (Apache-2.0), under champion/autopet-3-submission.
+
+2. Container scaffolding, tracer router, PSMA component gate, TACE
+   (topology-aware click editing) and the V5 transaction/HoleGuard gate
+   - Adapted from github.com/YixinChen-AI/autopet-v (Apache-2.0),
+     commit 2f5ee31e20aa94c18402d7f15c6f26f49be1c02a.
+   - This repository deliberately does NOT use that project's trained
+     LocalEdit specialist checkpoints; the interactive editing here is the
+     TACE probability-map branch plus this repository's own scribble
+     conformance lineage.
+
+3. autoPET-interactive nnU-Net fork
+   - From the AutoPET V organizers' baseline (github.com/lab-midas/autoPETV),
+     Apache-2.0.
+
+All modifications in this repository are licensed under Apache-2.0 (LICENSE).
