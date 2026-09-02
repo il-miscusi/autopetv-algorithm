@@ -1,8 +1,8 @@
-"""AutoPET V 2026 detection-aware TACE v6 container.
+"""AutoPET V 2026 LocalEdit--TACE HoleGuard Fusion v5 container.
 
 Every invocation obtains the hard M0 and float32 lesion probability from one
-Dataset222 AutoPET-III five-fold forward pass. Iter0 applies a conservative
-25-voxel component floor. Later invocations transact cumulative clicks against
+Dataset222 AutoPET-III five-fold forward pass. Iter0 remains bit-identical to
+the deployed champion. Later invocations transact cumulative clicks against
 the previous accepted mask using frozen tracer-specific TACE and LocalEdit
 proposals. HoleGuard fails closed to TACE, then to the previous mask.
 """
@@ -18,24 +18,17 @@ import numpy as np
 import SimpleITK
 
 from tracer_router import predict_tracer
+from psma_shape_component_gate import apply_psma_shape_gate, load_gate
+
+
 # ── 路径常量 (GC 接口 + bake 进镜像的权重目录) ──────────────────────────────
 INPUT_PATH = "/input"
 OUTPUT_PATH = "/output/images/tumor-lesion-segmentation"
 CLICK_JSON = "/input/lesion-clicks.json"
-
-
-def postprocess_champion_mask(raw_base, tracer):
-    """Apply the tracer-specific iteration-0 component floor."""
-    base = np.asarray(raw_base, dtype=np.uint8)
-    before = int(base.sum())
-    if tracer not in {"fdg", "psma"}:
-        raise RuntimeError(f"unsupported tracer route {tracer!r}")
-    threshold = 25
-    if before:
-        base = (
-            cc3d.dust(base, threshold=threshold, connectivity=18) > 0
-        ).astype(np.uint8)
-    return base, f"connectivity18_{tracer}{threshold}"
+PSMA_SHAPE_GATE_PATH = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "psma_shape_component_gate_final.json",
+)
 
 
 def _load_gc_clicks_lightweight(json_path):
@@ -162,10 +155,28 @@ class AutopetInteractive:
                 del probabilities, probability_argmax
 
         before = int(raw_base.sum())
-        base, postprocess = postprocess_champion_mask(raw_base, tracer)
+        if tracer == "fdg":
+            base = raw_base
+            if before:
+                base = (
+                    cc3d.dust(base, threshold=25, connectivity=18) > 0
+                ).astype(np.uint8)
+            postprocess = "connectivity18_fdg25"
+            gate_telemetry = None
+        elif tracer == "psma":
+            gate = load_gate(PSMA_SHAPE_GATE_PATH)
+            base, gate_telemetry = apply_psma_shape_gate(
+                raw_base,
+                tuple(float(value) for value in prediction_image.GetSpacing()),
+                gate,
+            )
+            postprocess = gate["candidate_semantics"]
+        else:
+            raise RuntimeError(f"unsupported tracer route {tracer!r}")
         print(
             f"champion tracer={tracer} postprocess={postprocess} "
             f"foreground={before}->{int(base.sum())} "
+            f"shape_gate={gate_telemetry}"
         )
         return base, lesion_probability
 
@@ -294,7 +305,6 @@ class AutopetInteractive:
             "tace_rejected_oversize_components": tace_result.rejected_oversize_components,
             "tace_rejected_add_merge_components": tace_result.rejected_add_merge_components,
             "tace_rejected_remove_split_voxels": tace_result.rejected_remove_split_voxels,
-            "tace_whole_components_removed": tace_result.whole_components_removed,
             "selected_source": fusion.source,
             "selection_reason": fusion.reason,
             "accepted_add_voxels": fusion.accepted_add_voxels,
@@ -304,7 +314,7 @@ class AutopetInteractive:
             "new_hole_voxels_tace": fusion.new_hole_voxels_gaussian,
             "hole_fallback_level": fusion.hole_fallback_level,
         }
-        print(f"Detection-aware TACE v6 telemetry: {telemetry}")
+        print(f"LocalEdit--TACE HoleGuard Fusion v5 telemetry: {telemetry}")
 
         # ── 5. 写出 uuid.mha (几何对齐到原始 PET/CT) ──────────────────────
         self._write_output(seg, None, ct_path, uuid)

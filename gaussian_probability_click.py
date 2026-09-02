@@ -43,7 +43,6 @@ class GaussianClickResult:
     rejected_oversize_components: int
     rejected_add_merge_components: int
     rejected_remove_split_voxels: int
-    whole_components_removed: int
 
 
 def autopet_v6_config(domain: str) -> GaussianClickConfig:
@@ -337,42 +336,6 @@ def _topology_safe_actions(
     return accepted_add, accepted_remove, rejected_add_merge, rejected_remove_split
 
 
-def _promote_majority_component_removals(
-    previous: np.ndarray,
-    proposed_remove: np.ndarray,
-    negative_seed: np.ndarray,
-    connectivity: int,
-    majority_fraction: float = 0.5,
-) -> tuple[np.ndarray, int]:
-    """Remove a whole prompted component when the local edit guts most of it.
-
-    A background scribble is ground-truth-certain. Leaving a small connected
-    remnant after removing most of its parent preserves a detection-level false
-    positive even though it improves voxel Dice. Promotion is deliberately
-    limited to the component touched by the active negative scribble and only
-    occurs when the already-bounded TACE proposal removes a strict majority.
-    """
-    if not 0.0 < majority_fraction < 1.0:
-        raise ValueError("majority_fraction must be between zero and one")
-    promoted = np.asarray(proposed_remove, dtype=bool).copy()
-    if not np.any(promoted) or not np.any(negative_seed):
-        return promoted, 0
-    structure = generate_binary_structure(3, connectivity)
-    components, _ = _sparse_label(previous, structure=structure)
-    prompted_ids = np.unique(components[negative_seed])
-    count = 0
-    for component_id in prompted_ids[prompted_ids != 0]:
-        component = components == component_id
-        component_size = int(component.sum())
-        if component_size == 0:
-            continue
-        removed_fraction = float(np.count_nonzero(promoted & component)) / component_size
-        if removed_fraction > majority_fraction:
-            promoted |= component
-            count += 1
-    return promoted, count
-
-
 def apply_gaussian_probability_clicks(
     lesion_probability: np.ndarray,
     previous_mask: np.ndarray,
@@ -462,12 +425,6 @@ def apply_gaussian_probability_clicks(
     remove, remove_rejected = _seeded_bounded_components(
         remove_candidate, active_negative, config.max_remove_voxels
     )
-    remove, whole_components_removed = _promote_majority_component_removals(
-        previous,
-        remove,
-        active_negative,
-        config.topology_connectivity,
-    )
     add, remove, add_merge_rejected, remove_split_rejected = _topology_safe_actions(
         previous,
         add,
@@ -487,5 +444,4 @@ def apply_gaussian_probability_clicks(
         rejected_oversize_components=add_rejected + remove_rejected,
         rejected_add_merge_components=add_merge_rejected,
         rejected_remove_split_voxels=remove_split_rejected,
-        whole_components_removed=whole_components_removed,
     )
